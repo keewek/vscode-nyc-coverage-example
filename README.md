@@ -1,65 +1,59 @@
-# vscode-nyc-coverage-example README
+# VS Code NYC test coverage example
 
-This is the README for your extension "vscode-nyc-coverage-example". After writing up a brief description, we recommend including the following sections.
+An example on how to get test coverage with NYC for VS Code extensions. 
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- GUI to pick a test suite files
+- Preselect
+    - Preselects currently open module's `.test.ts` suite file
+        
+        ![](assets/docs/preselect.png)
 
-For example if there is an image subfolder under your extension project workspace:
+    - Preselects currently open `.test.ts` suite file
+        
+        ![](assets/docs/preselect-with-test.png)
+    
 
-\!\[feature X\]\(images/feature-x.png\)
+## Additions to 'yo code' template
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- Added `nyc` to `devDependencies`
 
-## Requirements
+    ```
+    npm install --save-dev nyc
+    ```
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Added `npm: pretest` task which is used by 'Extension Tests (Coverage)' configuration
+- Added `Extension Tests (Select)` configuration
+    - Shows GUI to pick a test suite files
+    - Preselects with currently open file
 
-## Extension Settings
+- Added `Extension Tests (Coverage)` configuration
+    - Shows GUI to pick a test suite files
+    - Preselects with currently open file
+    - Generates a test coverage report
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+- Added `nyc-coverage-test-runner.ts`
+
+These additions make it easier to see coverage report in isolation. 
 
 For example:
 
-This extension contributes the following settings:
+Running test coverage for `module-c` in this example will show 100% coverage.
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+![](assets/docs/overview-module-c.png)
+
+While running test coverage for `module-a` & `module-b` will show 
+
+![](assets/docs/overview-modules-a-b.png)
+
+as their test suites are missing some branches. 
+
+![](assets/docs/code-module-a.png)
+
+![](assets/docs/code-module-b.png)
+
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Coverage report will be empty with `*` as one of the `activationEvents` in `package.json`.
